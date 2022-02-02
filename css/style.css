@@ -1,0 +1,850 @@
+/* GLOBAL */
+
+* {
+    font-family: 'MedievalSharp', cursive;
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    height: 100%;
+    max-height: 100vh;
+    overflow: auto;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background-image: url("../img/maze_background.jpg");
+    background-size:auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: auto;
+}
+
+/* MENU */
+#menu{
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 1em;
+    max-height: 100%;
+    overflow: auto;
+}
+
+#description{
+    width: 85%;
+    margin-bottom: 1em;
+}
+
+#description p{
+    text-align: justify;
+}
+
+#sliders{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+input[type="range"]{
+    cursor: pointer;
+}
+
+h1{
+    margin-top: 0.7em;
+    font-size: 3.5em;
+}
+
+p{
+    margin-top: 1.5em;
+    font-size: 2em;
+}
+#player-number, #treasure-number{
+    width: 20%;
+    margin: auto;
+}
+
+label{
+    font-size: 1.3em;
+    margin-top: 1em;
+}
+
+#start{
+    margin-top: 1em;
+    width: 25%;
+    height: 5%;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+
+/* GAME */
+#game{
+    display: none;
+    max-height: 100vh;
+    overflow: hidden;
+    text-align: center;
+}
+
+table{
+    height: 750px;
+    width: 750px;
+    border-collapse: collapse;
+    -webkit-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    -moz-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    -o-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+.cell{
+    width: calc(750px/9);
+    height: calc(750px/9);
+    /* border: 1px solid black; */
+    border-collapse: collapse;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+
+    -webkit-transition: width 0.5s ease-in-out, height 0.5s ease-in-out, background-image 0.3s ease-in-out;
+    -moz-transition: width 0.5s ease-in-out, height 0.5s ease-in-out, background-image 0.3s ease-in-out;
+    -o-transition: width 0.5s ease-in-out, height 0.5s ease-in-out, background-image 0.3s ease-in-out;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out, background-image 0.3s ease-in-out;
+}
+
+.border{
+    background-color: rgba(86, 99, 112, 0);
+    text-align: center;
+}
+
+.top, .bottom{
+    height: 25px;
+}
+.side-l, .side-r{
+    width: 25px;
+}
+.corner{
+    height: 25px;
+    width: 25px;
+}
+
+#back{
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    border: none;
+    display: none;
+}
+
+.arrow {
+    border: solid rgb(255, 255, 255);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+    cursor: pointer;
+}
+  
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+  
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+  
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+  
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+#next-item{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border: 5px gray dashed;
+    margin-top: 2em;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#container{
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    color: wheat;
+}
+
+#players1, #players2{
+    height: 63%;
+    width: 13%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+    -webkit-transition: height 0.5s ease-in-out;
+    -moz-transition: height 0.5s ease-in-out;
+    -o-transition: height 0.5s ease-in-out;
+    transition: height 0.5s ease-in-out;
+}
+
+#players1{
+    margin-right: 5em;
+    margin-left: 2em;
+    left: 10px;
+}
+
+#players2{
+    margin-left: 5em;
+    margin-right: 2em;
+    right: 10px;
+    
+}
+
+#players1 img, #players2 img{
+    width: 80%;
+    height: auto;
+    border: 3px solid rgb(255, 255, 255);
+    background-color: rgba(209, 209, 209, 0.411);
+}
+
+#players1 span, #players2 span{
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#rotate{
+    background-image: url(../img/refresh.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    margin-top: 1em;
+    cursor: pointer;
+}
+
+.entrance{
+    cursor: pointer;
+    z-index: 1;
+}
+
+.treasure-img{
+    width: 15px;
+    pointer-events: none;
+}
+
+.player-img{
+    width: 33px;
+    pointer-events: none;
+}
+
+.active{
+    border: 3px solid rgba(98, 226, 66, 0.801) !important;
+}
+
+.next-treasure, .collected, .player-name{
+    display: flex !important;
+}
+
+.path{
+    filter: hue-rotate(100deg);
+    cursor: pointer;
+}
+
+.path:hover{
+    filter: hue-rotate(190deg);
+}
+
+.path:hover > .player-img, .path:hover > .treasure-img{
+    filter: hue-rotate(-190deg);
+}
+
+.path > .player-img, .path > .treasure-img{
+    filter: hue-rotate(-100deg);
+}
+
+
+/* .path:after{
+    display: block;    
+    height: 18px;
+    width: 18px;
+    content: ".";
+    color: transparent;
+    border-radius: 50%;
+    border: green 1px solid;
+    position: relative;
+    z-index: 4;
+    margin: auto;
+} */
+
+#win{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#win>p{
+    width: 80%;
+    color: wheat;
+    margin-bottom: 4em;
+}
+#win-back{ /* Button */
+    width: 20%;
+    height: 5%;
+    cursor: pointer;
+}
+#win>img{
+    border: 3px solid rgb(151, 6, 6);
+    background-color: rgba(219, 61, 61, 0.205);
+    margin-bottom: 7em;
+}
+
+#popup{
+    display: none;
+    flex-direction: column;
+    width: 500px;
+    height: 150px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, .30);   
+    backdrop-filter: blur(5px);
+    z-index: 100;
+}
+
+#popup > label{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#save-buttons{
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#save-buttons button{
+    width: 50px;
+    height: 20px;
+    cursor: pointer;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
+#save-file-name{
+    width: 125px;
+    height: 20px;
+}
+
+#error{
+    color: red;
+    font-weight: bold;
+}
+
+#saved-games{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#save-grid{
+    background-color: rgba(255, 255, 255, .30);   
+    backdrop-filter: blur(5px);
+    width: 65%;
+    height: 70%;
+
+    -webkit-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    -moz-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    -o-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+#save-grid > tbody > tr > td{
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.thumbnail{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.inner-table{
+    width: 100px;
+    height: 100px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border: none;
+    pointer-events: none;
+    margin-top: 1em;
+}
+
+.inner-table-label {
+    margin-top: 0.5em;
+    pointer-events: none;
+}
+
+.delete{
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    pointer-events: auto;
+    margin-top: 1em;
+}
+
+.delete img{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.cell-style{
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+#saved-games > h1{
+    text-align: center;
+    margin-top: 0;
+    color: wheat;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+#load{
+    position: relative;
+    width: 150px;
+    height: 40px;
+    color: wheat;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#back2{
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    border: none;
+    display: none;
+}
+
+.cell-style{
+    width: calc(100px/7);
+    height: calc(100px/7);
+}
+
+.inner-player0::after, .inner-player1::after, .inner-player2::after, .inner-player3::after{
+    display: block;    
+    height: 3px;
+    width: 3px;
+    content: ".";
+    color: transparent;
+    border-radius: 50%;
+    position: relative;
+    z-index: 4;
+    margin: auto;
+}
+.inner-player0::after{
+    background-color: chartreuse;
+    border: green 1px solid;
+}
+.inner-player1::after{
+    background-color: rgb(0, 255, 234);
+    border: blue 1px solid;
+}
+.inner-player2::after{
+    background-color: rgb(221, 96, 96);
+    border: red 1px solid;
+}
+.inner-player3::after{
+    background-color: rgb(231, 233, 102);
+    border: yellow 1px solid;
+}
+
+@media screen and (max-width: 1450px) {
+    #menu{
+        padding-bottom: 1em;
+    }
+    #players1, #players2{
+        height: 70%;
+        width: 15%;
+    }
+    #save-grid{
+        width: 75%;
+    }
+    table{
+        height: 700px;
+        width: 700px;
+    }
+    .cell{
+        width: calc(700px/9);
+        height: calc(700px/9);
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    table{
+        height: 680px;
+        width: 680px;
+    }
+    .cell{
+        width: calc(680px/9);
+        height: calc(680px/9);
+    }
+}
+
+
+@media screen and (max-width: 1100px) {
+    table{
+        height: 650px;
+        width: 650px;
+    }
+    .cell{
+        width: calc(650px/9);
+        height: calc(650px/9);
+    }
+    #players1, #players2{
+        position: fixed;
+        bottom: 20px;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 40%;
+        height: 20%;
+        margin: 0;
+    }
+    #players1 > span, #players2 > span{
+        height: 100%;
+        width: 50%;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    #players1 img, #players2 img{
+        width: 40%;
+    }
+    #save-grid{
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    table{
+        height: 600px;
+        width: 600px;
+    }
+    .cell{
+        width: calc(600px/9);
+        height: calc(600px/9);
+    }
+}
+@media screen and (max-width: 650px) {
+    #description{
+        width: 90%;
+    }
+    h1 {
+        font-size: 3em;
+    }
+    p{  
+        font-size: 1.7em;
+    }
+    table{
+        width: 500px;
+        height: 500px;
+    }
+    .cell{
+        width: calc(500px/9);
+        height: calc(500px/9);
+    }
+    .arrow {
+        padding: 2px;
+    }
+    #next-item{
+        width: 80px;
+        height: 80px;
+    }
+    .treasure-img{
+        width: 17px;
+    }
+    .player-img{
+        width: 30px;
+    }
+    #rotate{
+        width: 18px;
+        height: 18px;
+    }
+    #players1 > span, #players2 > span{
+        font-size: 0.7em;
+        margin-bottom: 1em;
+        width: 40%;
+    }
+    #players1 img, #players2 img{
+        width: 60%;
+    }
+    #players1, #players2{
+        position: fixed;
+        top: 0px;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 50%;
+        height: 20%;
+    }
+    #players1{
+        left: 0px;
+    }
+    #players2{
+        right: 0px;
+    }
+    #game{
+        margin-top: 6em;
+    }
+    .path:after{ 
+        height: 15px;
+        width: 15px;
+    }
+    #win>p{
+        margin-bottom: 3em;
+    }
+    #win-back{ /* Button */
+        width: 40%;
+        height: 6%;
+    }
+    #win>img{
+        width: 50%;
+        border: 3px solid rgb(151, 6, 6);
+        background-color: rgba(219, 61, 61, 0.205);
+        margin-bottom: 6em;
+    }
+    #start{
+        margin-top: 10px;
+        margin-bottom: 2em;
+    }
+    
+    #popup{
+        width: 300px;
+        height: 175px;
+    }
+    
+    #popup label{
+        margin-top: 1.2em;
+    }
+
+    #save-grid{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    h1 {
+        width: 70%;
+        margin: auto;
+        font-size: 2.5em;
+    }
+    p{  
+        margin-top: 1.5em;
+        font-size: 1.2em;
+    }
+    #description{
+        width: 90%;
+    }
+    #player-number, #treasure-number{
+        width: 45%;
+        margin: auto;
+    }
+    label{
+        font-size: 1em;
+    }
+    #start{
+        margin-bottom: 1em;
+    }
+    table{
+        width: 450px;
+        height: 450px;
+    }
+    .cell{
+        width: calc(450px/9);
+        height: calc(450px/9);
+    }
+    #next-item{
+        width: 70px;
+        height: 70px;
+    }
+    .treasure-img{
+        width: 14px;
+    }
+    .player-img{
+        width: 23px;
+    }
+    #rotate{
+        width: 15px;
+        height: 15px;
+    }
+    .path:after{ 
+        height: 13px;
+        width: 13px;
+    }
+    .inner-table{
+        width: 80px;
+        height: 80px;
+    }
+    .cell-style{
+        width: calc(80px/7);
+        height: calc(80px/7);
+    }
+    #saved-games{
+        padding: 0;
+    }
+    #saved-games > h1{
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    #start{
+        font-size: 0.9em;
+    }  
+    .inner-player0::after, .inner-player1::after, .inner-player2::after, .inner-player3::after{
+        width: 2px;
+        height: 2px;
+    }
+}
+
+@media screen and (max-width: 444px) {
+    h1 {
+        width: 70%;
+        margin: auto;
+        font-size: 2.5em;
+    }
+    p{  
+        margin-top: 1.5em;
+        font-size: 1.2em;
+    }
+    #description{
+        width: 90%;
+    }
+    #player-number, #treasure-number{
+        width: 45%;
+        margin: auto;
+    }
+    label{
+        font-size: 0.8em;
+    }
+    #start{
+        margin-bottom: 0.2em;
+    }
+    table{
+        width: 320px;
+        height: 320px;
+    }
+    .cell{
+        width: calc(320px/9);
+        height: calc(320px/9);
+    }
+    #next-item{
+        width: 60px;
+        height: 60px;
+    }
+    .treasure-img{
+        width: 10px;
+    }
+    .player-img{
+        width: 15px;
+    }
+    #rotate{
+        width: 12px;
+        height: 12px;
+    }
+    .path:after{ 
+        height: 10px;
+        width: 10px;
+    }
+    .inner-table{
+        width: 65px;
+        height: 65px;
+    }
+    .cell-style{
+        width: calc(65px/7);
+        height: calc(65px/7);
+    }
+    #saved-games{
+        padding: 0;
+    }
+    #saved-games > h1{
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }   
+}
+
+@media screen and (max-width: 350px) {
+    .cell-style{
+        width: 5px;
+        height: 5px;
+    }
+    .inner-table{
+        width: 65px;
+        height: 65px;
+    }
+    #save-grid > tbody > tr > td{
+        width: 75px;
+        height: 75px;
+    }
+    .delete{
+        width: 15px;
+        height: 15px;
+        margin-top: 0;
+    }
+    
+    .delete img{
+        width: 15px;
+        height: 15px;
+    }
+    #saved-grid{
+        max-height: 300px;
+    }
+    #saved-games > h1{
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }   
+    #start{
+        font-size: 0.8em;
+    }
+}

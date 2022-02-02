@@ -1,0 +1,11 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <g transform="rotate(180 50 50)" id="svg_17" stroke="null">
+   <path fill="#666666" opacity="NaN" d="m0,0l100,0l0,100l-100,0l0,-100z" id="svg_9" stroke-width="0" stroke="#000"/>
+   <rect fill="#C48157" x="30" y="0" width="40" height="100" id="svg_10" stroke-width="0" stroke="#000"/>
+   <rect fill="#C48157" stroke-width="0" x="50" y="30" width="50" height="40" id="svg_12" stroke="#000"/>
+  </g>
+ </g>
+
+</svg>
