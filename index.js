@@ -1,13 +1,4 @@
-/* 
-!IMPORTANT
-TODO Green circle css 
-TODO Implement saving/loading
-TODO Animation (cells/players)
-TODO Next treasure selection
-TODO Treasure sticking to cell
-*/
-
-/* CELL TYPES */
+//* ----------Cells----------
 const oneWayLR = {
     T: 0,
     B: 0,
@@ -82,30 +73,6 @@ const oneWays = [oneWayLR, oneWayTB];
 const twoWays = [twoWayLB, twoWayTL, twoWayTR, twoWayRB];
 const threeWays = [threeWayLRB, threeWayTLB, threeWayTLR, threeWayTRB];
 
-/* TABLE / CELLS */
-const randomIndexes = [
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 3, 3, 3, 3, 3, 3,
-];
-const fixCellsArr = [
-    twoWayRB,
-    threeWayLRB,
-    threeWayLRB,
-    twoWayLB,
-    threeWayTRB,
-    threeWayTRB,
-    threeWayLRB,
-    threeWayTLB,
-    threeWayTRB,
-    threeWayTLR,
-    threeWayTLB,
-    threeWayTLB,
-    twoWayTR,
-    threeWayTLR,
-    threeWayTLR,
-    twoWayTL,
-];
-let rndCellsArr = [];
 const tableIndexes = [
     [1, 0, 1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0, 0, 0],
@@ -115,44 +82,107 @@ const tableIndexes = [
     [0, 0, 0, 0, 0, 0, 0],
     [1, 0, 1, 0, 1, 0, 1],
 ];
-let table = [[], [], [], [], [], [], []];
-let tableArray = [];
-let nextItem;
-let tempNextItem;
-let availableFields = [
+const fixCellsArr = [
+    {
+        ID: 0,
+        type: twoWayRB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayLRB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayLRB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: twoWayLB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTRB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTRB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayLRB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTLB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTRB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTLR,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTLB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTLB,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: twoWayTR,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTLR,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: threeWayTLR,
+        treasures: [],
+    },
+    {
+        ID: 0,
+        type: twoWayTL,
+        treasures: [],
+    },
+];
+const rndCellsIndexes = [
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 3, 3, 3, 3, 3, 3,
+];
+let rndCellsArr = [
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 3, 3, 3, 3, 3, 3,
+];
+let table = [
+    [1, 0, 1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 1, 0, 1],
 ];
 
-/* PLAYERS */
-class Player {
-    nextTreasure;
-    constructor(startPosition, currentPosition, collected, treasure, img) {
-        this.startPosition = startPosition;
-        this.currentPosition = currentPosition;
-        this.collected = collected;
-        this.treasure = treasure;
-        this.img = img;
-    }
-}
-
-let player1Treasure = [[], [], [], [], [], [], []];
-let player2Treasure = [[], [], [], [], [], [], []];
-let player3Treasure = [[], [], [], [], [], [], []];
-let player4Treasure = [[], [], [], [], [], [], []];
-
-let treasures = [
-    player1Treasure,
-    player2Treasure,
-    player3Treasure,
-    player4Treasure,
-];
-
+//* ----------Players----------
 const playerIcons = [
     "img/knight_transparent1.png",
     "img/knight_transparent2.png",
@@ -162,313 +192,649 @@ const playerIcons = [
     "img/knight_transparent6.png",
     "img/knight_transparent7.png",
 ];
-let playerIconIndexes = [];
 let players = [];
-let currentPlayer = 0;
-const playerSpans = [
+let names = ["Player1", "Player2", "Player3", "Player4"];
+
+//* ----------Constants----------
+const bannedTreasurePlaces = ["00", "06", "60", "66"];
+const playerSpans2 = [
+    document.querySelector("#players1>span:nth-of-type(1)"),
+    document.querySelector("#players2>span:nth-of-type(1)"),
+    document.querySelector("#players1>span:nth-of-type(2)"),
+    document.querySelector("#players2>span:nth-of-type(2)"),
+];
+const playerSpans4 = [
     document.querySelector("#players1>span:nth-of-type(1)"),
     document.querySelector("#players1>span:nth-of-type(2)"),
     document.querySelector("#players2>span:nth-of-type(1)"),
     document.querySelector("#players2>span:nth-of-type(2)"),
 ];
+const playerSpans = [playerSpans2, playerSpans4];
 
-let names = ["Player1", "Player2", "Player3", "Player4"];
-const bannedTreasurePlaces = ["00", "06", "60", "66"];
-/* DOM ELEMENTS */
+//* ----------Variables----------
+let playerNumber = 2;
+let treasureNumber = 6;
+let nextItem;
+let playerIconIndexes = [];
+let availableFields = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+];
+let tempNextItem;
+let curPlayer = 0;
+let lastEntrance;
+let alreadyMoved = false;
+
+//* ----------DOM Selectors----------
 const menu = document.querySelector("#menu");
 const gameContainer = document.querySelector("#container");
 const winPage = document.querySelector("#win");
-const gameField = document.querySelector("#game");
-const playerNumber = document.querySelector("#player-number");
-const treasureNumber = document.querySelector("#treasure-number");
-const maxTreasureValue = document.querySelector("#max-treasure");
-const playerOut = document.querySelector("#player-out");
-const treasureOut = document.querySelector("#treasure-out");
-const sliders = document.querySelector("#sliders");
-const startBtn = document.querySelector("#start");
-const backBtn = document.querySelector("#back");
-const backBtn2 = document.querySelector("#back2");
-const cells = document.querySelectorAll(".cell");
-const fixCells = document.querySelectorAll(".fix");
-const rndCells = document.querySelectorAll(".rnd");
-const nextItemFrame = document.querySelector("#next-item");
-const rotateBtn = document.querySelector("#rotate");
-const upArrows = document.querySelectorAll(".up");
-const leftArrows = document.querySelectorAll(".left");
-const rightArrows = document.querySelectorAll(".right");
-const downArrows = document.querySelectorAll(".down");
-const winBackBtn = document.querySelector("#win-back");
-const error = document.querySelector("#error");
-const popup = document.querySelector("#popup");
-const save = document.querySelector("#save");
-const exit = document.querySelector("#exit");
-const saveFileInput = document.querySelector("#save-file-name");
 const savedGames = document.querySelector("#saved-games");
-const load = document.querySelector("#load");
+
+const game = document.querySelector("#game > table");
+const cells = document.querySelectorAll(".cell");
+const nextItemFrame = document.querySelector("#next-item");
+
 const saveGrid = document.querySelector("#save-grid");
-const cancelBtn = document.querySelector("#cancel")
+const popup = document.querySelector("#popup");
+const error = document.querySelector("#error");
 
-/* GAME LOOP */
-const step = () => {
-    drawTreasure(currentPlayer);
-    drawCurrentPlayerFields();
+const sliders = document.querySelector("#sliders");
+const saveFileInput = document.querySelector("#save-file-name");
+
+const startBtn = document.querySelector("#start");
+const savedGamesBtn = document.querySelector("#load");
+const backBtn = document.querySelector("#back");
+const howToBtn = document.querySelector("#how-to");
+const rotateBtn = document.querySelector("#rotate");
+const winBackBtn = document.querySelector("#win-back");
+const backBtn2 = document.querySelector("#back2");
+const saveBtn = document.querySelector("#save");
+const exitBtn = document.querySelector("#exit");
+const cancelBtn = document.querySelector("#cancel");
+const entrances = document.querySelectorAll(".entrance");
+
+//* ----------Button Functions----------
+const firstRun = () => {
+    sliderInputHandler();
+    start(playerNumber, treasureNumber);
 };
+const back = () => {
+    menu.style.display = "flex";
+    gameContainer.style.display = "none";
+    backBtn.style.display = "none";
+    winPage.style.display = "none";
+    savedGames.style.display = "none";
+    backBtn2.style.display = "none";
+    popup.style.display = "none";
 
-function availableFieldsHandler(e) {
-    if (e.target.matches(".path")) {
-        let cur = players[currentPlayer];
-        let nextCoordStr = cur.nextTreasure.x + "" + cur.nextTreasure.y;
-        setNextTreasure(cur);
-        cur.currentPosition = e.target.id;
-        if (cur.currentPosition == cur.startPosition && cur.nextTreasure == 0) {
-            win(names[currentPlayer] + " has won the game!");
-        }
-        if (cur.currentPosition == nextCoordStr) {
-            cur.treasure[cur.currentPosition[1]][cur.currentPosition[0]] = 0;
-            setNextTreasure(cur);
-            cur.collected++;
-        }
-
-        playerSpans[currentPlayer].querySelector(
-            ".collected"
-        ).innerHTML = `Collected: ${cur.collected}/${treasureNumber.value}`;
-        if (players[currentPlayer].nextTreasure != 0) {
-            playerSpans[currentPlayer].querySelector(
-                ".next-treasure"
-            ).innerHTML = `x: ${cur.nextTreasure.x + 1}, y: ${
-                cur.nextTreasure.y + 1
-            }`;
-        } else {
-            let coord = genCoordFromStr(players[currentPlayer].startPosition);
-            console.log(coord);
-            playerSpans[currentPlayer].querySelector(
-                ".next-treasure"
-            ).innerHTML = `x: ${parseInt(coord.y) + 1}, y: ${
-                parseInt(coord.y) + 1
-            }`;
-        }
-
-        unDrawAvailableFields();
-        nextPlayer();
-        drawPlayers();
-        step();
-    }
-}
-/* UPDATE FUNCTIONS */
-const updateMaxTreasureValue = (value) => {
-    maxTreasureValue.innerHTML = 24 / value;
-    treasureNumber.max = 24 / value;
-    treasureNumber.value = treasureNumber.max / 2;
-    updateOutPut();
-};
-
-const updateOutPut = () => {
-    playerOut.innerHTML = playerNumber.value;
-    treasureOut.innerHTML = treasureNumber.value;
-};
-
-/* BUTTON FUNCTIONS */
-const start = () => {
     gameContainer.style.pointerEvents = "auto";
+
+    playerSpans2.forEach((x) =>
+        x.querySelector("img").classList.remove("active")
+    );
+};
+const sliderInputHandler = (e) => {
+    if (e) {
+        if (e.target.matches("#player-number")) {
+            document.querySelector("#treasure-number").max =
+                24 / e.target.value;
+            document.querySelector("#max-treasure").innerHTML =
+                24 / e.target.value;
+            document.querySelector("#player-out").innerHTML = e.target.value;
+            if (
+                document.querySelector("#treasure-out").innerHTML >
+                24 / e.target.value
+            ) {
+                document.querySelector("#treasure-out").innerHTML =
+                    24 / e.target.value;
+            }
+        }
+        if (e.target.matches("#treasure-number")) {
+            document.querySelector("#treasure-out").innerHTML = e.target.value;
+        }
+    }
+
+    playerNumber = document.querySelector("#player-number").value;
+    treasureNumber = document.querySelector("#treasure-number").value;
+};
+const toggleDescription = () => {
+    document.querySelector("#description > p").classList.toggle("hidden");
+};
+const loadSaveMenu = () => {
     menu.style.display = "none";
-    gameContainer.style.display = "inline-flex";
-    game.style.display = "block";
+    savedGames.style.display = "flex";
+    backBtn2.style.display = "flex";
+    loadGamePreviews();
+};
+const openPopUp = () => {
+    gameContainer.style.pointerEvents = "none";
+    popup.style.display = "flex";
+    error.innerHTML = "";
+    saveFileInput.value = "";
+    saveFileInput.disabled = false;
+    saveBtn.disabled = false;
+    if (localStorage.getItem("saveNames")) {
+        let temp = JSON.parse(localStorage.getItem("saveNames"));
+        if (temp) {
+            if (JSON.parse(localStorage.getItem("saveNames")).length >= 9) {
+                saveFileInput.disabled = true;
+                error.innerHTML = "Storage if full!";
+                saveBtn.disabled = true;
+            }
+        }
+    }
+};
+const cancelPopUp = () => {
+    gameContainer.style.pointerEvents = "auto";
+    popup.style.display = "none";
+};
+const saveGame = () => {
+    let name = saveFileInput.value;
+    if (!saveToLocalStorage(name)) {
+        return;
+    }
+    gameContainer.style.pointerEvents = "auto";
+    error.innerHTML = "";
+    back();
+};
+const checkInput = () => {
+    let name = saveFileInput.value;
+    if (name.length == 0) {
+        error.innerHTML = "";
+        return false;
+    }
+    if (name.length > 15 || name.length < 3) {
+        error.innerHTML =
+            "Invalid! The file name must be 3-15 characters long!";
+        return false;
+    }
+    if (/[^A-Za-z0-9]+/.test(name)) {
+        error.innerHTML = "Invalid! No special characters!";
+        return false;
+    }
+    if (name == "") {
+        error.innerHTML = "The filename cannot be empty!";
+        return false;
+    }
+    error.innerHTML = "";
+    return true;
+};
+const deleteHandler = (e) => {
+    if (e.target.matches(".delete img")) {
+        deleteFromLocalStorage(e.target.id);
+        loadGamePreviews();
+    }
+};
+const loadGame = (e) => {
+    if (e.target.matches("td") && e.target.innerHTML != "") {
+        savedGames.style.display = "none";
+        loadFromLocalStorage(e.target.classList[0]);
+    }
+};
+
+//* ----------Logic Functions----------
+const start = (plyNumber, trsNumber) => {
+    playerSpans2[0].querySelector("img").classList.toggle("active");
+
+    curPlayer = 0;
+    lastEntrance = null;
+    alreadyMoved = false;
+
+    menu.style.display = "none";
+    gameContainer.style.display = "flex";
     backBtn.style.display = "block";
-    currentPlayer = 0;
-    document.querySelector("#players1 span img").classList.add("active");
+
+    playerNumber = plyNumber;
+    treasureNumber = trsNumber;
+
+    unDrawAvailableFields();
+    cells.forEach((x) => {
+        x.style.opacity = "1";
+        /* x.classList.remove("dimmed") */
+    });
+
     genRandomCells();
     genTable();
     drawCells();
+
     genPlayers();
-    drawPlayerIcons();
     drawPlayers();
-    step();
-};
 
-const back = () => {
-    menu.style.display = "flex";
-    game.style.display = "none";
-    backBtn.style.display = "none";
-    gameContainer.style.display = "none";
-    winPage.style.display = "none";
-    popup.style.display = "none";
-    backBtn2.style.display = "none";
-    savedGames.style.display = "none";
-    document.querySelector("#players1>span:nth-of-type(1)").style.display =
-        "none";
-    document.querySelector("#players2>span:nth-of-type(1)").style.display =
-        "none";
-    document.querySelector("#players1>span:nth-of-type(2)").style.display =
-        "none";
-    document.querySelector("#players2>span:nth-of-type(2)").style.display =
-        "none";
-    let actives = document.querySelectorAll(".active");
-    for (let i of actives) {
-        i.classList.remove("active");
+    genTreasures();
+    drawNextTreasure(0);
+
+    drawPlayerIcons();
+    drawValidEntrances();
+};
+const isTreasure = (playerID) => {
+    return (
+        players[playerID].curPos ==
+        getCellPosition(players[playerID].treasureIDs[0])
+    );
+};
+const pickUpTreasure = (playerID) => {
+    let pos = getCellPosition(players[playerID].treasureIDs[0]);
+
+    let ind = table[pos[0]][pos[1]].treasures.indexOf(playerID);
+    if (ind > -1) {
+        table[pos[0]][pos[1]].treasures.splice(ind, 1);
     }
-    unDrawAvailableFields();
+
+    let img = document.querySelector(".treasure-img").remove();
+
+    players[playerID].treasureIDs.shift();
+    players[playerID].collected++;
 };
-
-const cancelHandler = () => {
-    gameContainer.style.pointerEvents = "auto";
-    popup.style.display = "none";
-}
-
-const win = (msg) => {
+const checkWin = (playerID) => {
+    return (
+        players[playerID].treasureIDs.length == 0 &&
+        players[playerID].curPos == players[playerID].startPos
+    );
+};
+const win = (playerID) => {
     gameContainer.style.display = "none";
-    winPage.style.display = "flex";
     backBtn.style.display = "none";
-    winPage.querySelector("p").textContent = msg;
-    winPage.querySelector("img").src = players[currentPlayer].img;
+    winPage.style.display = "flex";
+    winPage.querySelector(
+        "p"
+    ).textContent = `${players[playerID].name} has won the game!`;
+    winPage.querySelector("img").src = players[playerID].img;
 };
-/* LOGIC FUNCTIONS */
-const genTable = () => {
-    let tempFix = [...fixCellsArr];
-    let tempRnd = [...rndCellsArr];
+const step = () => {
+    alreadyMoved = false;
+    nextPlayer();
+    drawPlayerIcons();
+    drawNextTreasure(curPlayer);
+    drawValidEntrances();
+};
 
-    table = [[], [], [], [], [], [], []];
+//* ----------Generator functions----------
+const genRandomCells = () => {
+    /* Shuffle rndCellArr */
+    let currentIndex = rndCellsIndexes.length,
+        randomIndex;
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [rndCellsIndexes[currentIndex], rndCellsIndexes[randomIndex]] = [
+            rndCellsIndexes[randomIndex],
+            rndCellsIndexes[currentIndex],
+        ];
+    }
+
+    /* Replace rndCellArr elements(numbers) with cells */
+    let rnd;
+    for (let i = 0; i < rndCellsIndexes.length; i++) {
+        let tempCell = {
+            ID: 0,
+            type: {},
+            treasures: [],
+        };
+        switch (rndCellsIndexes[i]) {
+            case 1:
+                rnd = getRandomInt(oneWays.length - 1);
+                tempCell.type = oneWays[rnd];
+                rndCellsArr[i] = tempCell;
+                break;
+            case 2:
+                rnd = getRandomInt(twoWays.length - 1);
+                tempCell.type = twoWays[rnd];
+                rndCellsArr[i] = tempCell;
+                break;
+            case 3:
+                rnd = getRandomInt(threeWays.length - 1);
+                tempCell.type = threeWays[rnd];
+                rndCellsArr[i] = tempCell;
+                break;
+        }
+    }
+};
+const genTable = () => {
+    let tempRnd = [...rndCellsArr];
+    let tempFix = [...fixCellsArr];
     for (let i = 0; i < tableIndexes.length; i++) {
         for (let j = 0; j < tableIndexes[i].length; j++) {
             if (tableIndexes[i][j] == 1) {
-                table[i].push(tempFix.shift());
+                table[i][j] = tempFix.shift();
+                table[i][j].ID = i + "" + j;
             } else {
-                table[i].push(tempRnd.shift());
+                table[i][j] = tempRnd.shift();
+                table[i][j].ID = i + "" + j;
             }
         }
     }
     nextItem = tempRnd.shift();
 };
-
-const genRandomCells = () => {
-    rndCellsArr = [];
-    let currentIndex = randomIndexes.length, randomIndex;
-    while (currentIndex != 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        [randomIndexes[currentIndex], randomIndexes[randomIndex]] = [
-            randomIndexes[randomIndex],
-            randomIndexes[currentIndex],
-        ];
-    }
-    let rnd;
-    for (let i = 0; i < randomIndexes.length; i++) {
-        switch (randomIndexes[i]) {
-            case 1:
-                rnd = getRandomInt(oneWays.length - 1);
-                rndCellsArr.push(oneWays[rnd]);
-                break;
-            case 2:
-                rnd = getRandomInt(twoWays.length - 1);
-                rndCellsArr.push(twoWays[rnd]);
-                break;
-            case 3:
-                rnd = getRandomInt(threeWays.length - 1);
-                rndCellsArr.push(threeWays[rnd]);
-                break;
-        }
-    }
-};
-
 const genPlayers = () => {
-    setTreasuresToZero();
     players = [];
     playerIconIndexes = [];
-    let playerNumberValue = playerNumber.value;
-    let playerTreasureValue = treasureNumber.value;
-    let randomPlayerIconIndex;
-    for (let i = 0; i < playerNumberValue; i++) {
-        let strPos;
-        let curPos;
+
+    for (let i = 0; i < playerNumber; i++) {
+        let tempPlayer = {
+            name: names[i],
+            startPos: "00",
+            curPos: "00",
+            collected: 0,
+            treasureIDs: [],
+            img: "",
+        };
+
+        /* Setting starting position */
         switch (i) {
             case 0:
-                strPos = "00";
-                curPos = "00";
+                tempPlayer.startPos = "00";
+                tempPlayer.curPos = "00";
                 break;
             case 1:
-                strPos = "66";
-                curPos = "66";
+                tempPlayer.startPos = "66";
+                tempPlayer.curPos = "66";
                 break;
             case 2:
-                strPos = "06";
-                curPos = "06";
+                tempPlayer.startPos = "60";
+                tempPlayer.curPos = "60";
                 break;
             case 3:
-                strPos = "60";
-                curPos = "60";
+                tempPlayer.startPos = "06";
+                tempPlayer.curPos = "06";
                 break;
         }
-        for (let j = 0; j < playerTreasureValue; j++) {
-            let tempCoord = getRandomInt(6) + "" + getRandomInt(6);
-            let coord = genCoordFromStr(tempCoord);
-            while (
-                bannedTreasurePlaces.includes(tempCoord) ||
-                treasures[i][coord.x][coord.y] == 1 ||
-                treasures[i][coord.x][coord.y] == 1
-            ) {
-                tempCoord = getRandomInt(6) + "" + getRandomInt(6);
-                coord = genCoordFromStr(tempCoord);
-            }
-            treasures[i][coord.x][coord.y] = 1;
-        }
 
-        /* Set player icon */
-        randomPlayerIconIndex = getRandomInt(6);
+        /* Setting player icon */
+        let randomPlayerIconIndex = getRandomInt(6);
         while (playerIconIndexes.includes(randomPlayerIconIndex)) {
             randomPlayerIconIndex = getRandomInt(6);
         }
         playerIconIndexes.push(randomPlayerIconIndex);
-        let tempPlayer = new Player(
-            strPos,
-            curPos,
-            0,
-            treasures[i],
-            playerIcons[randomPlayerIconIndex]
-        );
-        setNextTreasure(tempPlayer);
+
+        tempPlayer.img = playerIcons[randomPlayerIconIndex];
         players.push(tempPlayer);
     }
 };
+const genTreasures = () => {
+    let k;
+    let h;
+    for (let i = 0; i < playerNumber; i++) {
+        for (let j = 0; j < treasureNumber; j++) {
+            k = getRandomInt(6);
+            h = getRandomInt(6);
 
-const genCoordFromStr = (str) => {
-    return { x: str[0], y: str[1] };
+            while (
+                bannedTreasurePlaces.includes(k + "" + h) ||
+                table[k][h].treasures.includes(i)
+            ) {
+                k = getRandomInt(6);
+                h = getRandomInt(6);
+            }
+            table[k][h].treasures.push(i);
+            players[i].treasureIDs.push(k + "" + h);
+        }
+    }
 };
 
+//* ----------Drawing Functions----------
+const drawCells = () => {
+    for (let i = 0; i < table.length; i++) {
+        for (let j = 0; j < table.length; j++) {
+            cells[
+                i * table[i].length + j
+            ].style.backgroundImage = `url(${table[i][j].type.img})`;
+        }
+    }
+    nextItemFrame.style.backgroundImage = `url(${nextItem.type.img})`;
+};
+const drawPlayers = () => {
+    let playerImageCells = document.querySelectorAll(".player-img");
+    for (let img of playerImageCells) {
+        img.remove();
+    }
+    for (let i = 0; i < players.length; i++) {
+        document.getElementById(
+            `${players[i].curPos}`
+        ).innerHTML += `<img class="player-img" src="${players[i].img}">`;
+    }
+};
+const drawNextTreasure = (playerID) => {
+    /* Remove Previous Treasures */
+    let treasureImageCells = document.querySelectorAll(".treasure-img");
+    for (let img of treasureImageCells) {
+        img.remove();
+    }
+
+    if (players[playerID].treasureIDs.length != 0) {
+        let pos = getCellPosition(players[playerID].treasureIDs[0]);
+        if (pos != -1) {
+            document.getElementById(
+                `${pos[0] + "" + pos[1]}`
+            ).innerHTML += `<img class="treasure-img" src="img/treasure.png">`;
+        } else {
+            document.getElementById(
+                `next-item`
+            ).innerHTML += `<img class="treasure-img" src="img/treasure.png">`;
+        }
+    }
+};
+const drawAvailableFields = () => {
+    unDrawAvailableFields();
+    for (let i = 0; i < availableFields.length; i++) {
+        for (let j = 0; j < availableFields[i].length; j++) {
+            if (availableFields[i][j] == 1) {
+                document
+                    .getElementById(`${i + "" + j}`)
+                    .classList.toggle("path");
+            }
+        }
+    }
+};
+const unDrawAvailableFields = () => {
+    let pathFields = document.querySelectorAll(".path");
+    for (let field of pathFields) {
+        field.classList.remove("path");
+    }
+};
+const drawPlayerIcons = () => {
+    let spans;
+    if (playerNumber <= 2) {
+        spans = playerSpans[0];
+    } else {
+        spans = playerSpans[1];
+    }
+
+    for (let span of spans) {
+        span.style.display = "none";
+    }
+
+    for (let i = 0; i < players.length; i++) {
+        spans[i].style.display = "flex";
+        spans[i].querySelector("img").src = players[i].img;
+        spans[i].querySelector(".player-name").innerHTML = names[i];
+        spans[i].querySelector(
+            ".collected"
+        ).innerHTML = `Collected: ${players[i].collected}/${treasureNumber}`;
+
+        if (players[i].treasureIDs.length != 0) {
+            let pos = getCellPosition(players[i].treasureIDs[0]);
+            if (pos != -1) {
+                spans[i].querySelector(".next-treasure").innerHTML = `x: ${parseInt(pos[1]) + 1
+                    }, y: ${parseInt(pos[0]) + 1}`;
+            } else {
+                spans[i].querySelector(
+                    ".next-treasure"
+                ).innerHTML = `x: -, y: -`;
+            }
+        } else {
+            spans[i].querySelector(".next-treasure").innerHTML = `x: ${parseInt(players[i].startPos[1]) + 1
+                }, y: ${parseInt(players[i].startPos[0]) + 1}`;
+        }
+    }
+};
+const nextPlayer = () => {
+    let spans;
+    if (playerNumber <= 2) {
+        spans = playerSpans[0];
+    } else {
+        spans = playerSpans[1];
+    }
+    spans[curPlayer].querySelector("img").classList.toggle("active");
+    if (curPlayer + 1 <= players.length - 1) {
+        curPlayer++;
+    } else {
+        curPlayer = 0;
+    }
+    spans[curPlayer].querySelector("img").classList.toggle("active");
+};
+const drawValidEntrances = () => {
+    let alreadyValid = document.querySelectorAll(".valid");
+    for (let valid of alreadyValid) {
+        valid.classList.remove("valid");
+    }
+
+    for (let entry of entrances) {
+        if (!alreadyMoved) {
+            if (lastEntrance != null) {
+                if (entry != getOppositeEntrance(lastEntrance))
+                    entry.classList.add("valid");
+            } else {
+                entry.classList.add("valid");
+            }
+        }
+    }
+};
+
+//* ----------Path Finding Functions----------
+const getAvailableFields = (i, j) => {
+    availableFields = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ];
+    availableFields[i][j] = 1;
+    let l = true;
+    while (l) {
+        l = false;
+        for (let i = 0; i < availableFields.length; i++) {
+            for (let j = 0; j < availableFields[i].length; j++) {
+                if (availableFields[i][j] == 1) {
+                    let a = getNeighborFields(i, j);
+                    if (a.length != 0) {
+                        if (
+                            a.includes("up") &&
+                            availableFields[i - 1][j] != 1
+                        ) {
+                            availableFields[i - 1][j] = 1;
+                            l = true;
+                        }
+                        if (
+                            a.includes("down") &&
+                            availableFields[i + 1][j] != 1
+                        ) {
+                            availableFields[i + 1][j] = 1;
+                            l = true;
+                        }
+                        if (
+                            a.includes("left") &&
+                            availableFields[i][j - 1] != 1
+                        ) {
+                            availableFields[i][j - 1] = 1;
+                            l = true;
+                        }
+                        if (
+                            a.includes("right") &&
+                            availableFields[i][j + 1] != 1
+                        ) {
+                            availableFields[i][j + 1] = 1;
+                            l = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+const getNeighborFields = (i, j) => {
+    let availableDirections = [];
+    if (i - 1 >= 0 && table[i][j].type.T == 1 && table[i - 1][j].type.B == 1) {
+        if (availableFields[i - 1][j] != 1) {
+            availableDirections.push("up");
+        }
+    }
+    if (
+        i + 1 <= table.length - 1 &&
+        table[i][j].type.B == 1 &&
+        table[i + 1][j].type.T == 1
+    ) {
+        if (availableFields[i + 1][j] != 1) {
+            availableDirections.push("down");
+        }
+    }
+    if (j - 1 >= 0 && table[i][j].type.L == 1 && table[i][j - 1].type.R == 1) {
+        if (availableFields[i][j - 1] != 1) {
+            availableDirections.push("left");
+        }
+    }
+    if (
+        j + 1 <= table[0].length - 1 &&
+        table[i][j].type.R == 1 &&
+        table[i][j + 1].type.L == 1
+    ) {
+        if (availableFields[i][j + 1] != 1) {
+            availableDirections.push("right");
+        }
+    }
+    return availableDirections;
+};
+
+//* ----------Table Manipulation Functions----------
 const rotate = () => {
     let ind;
-    if (nextItem.img.includes("1")) {
-        ind = oneWays.indexOf(nextItem);
+    if (nextItem.type.img.includes("1")) {
+        ind = oneWays.indexOf(nextItem.type);
         if (ind + 1 > oneWays.length - 1) {
             ind = 0;
         } else {
             ind++;
         }
-        nextItem = oneWays[ind];
-    } else if (nextItem.img.includes("2")) {
-        ind = twoWays.indexOf(nextItem);
+        nextItem.type = oneWays[ind];
+    } else if (nextItem.type.img.includes("2")) {
+        ind = twoWays.indexOf(nextItem.type);
         if (ind + 1 > twoWays.length - 1) {
             ind = 0;
         } else {
             ind++;
         }
-        nextItem = twoWays[ind];
+        nextItem.type = twoWays[ind];
     } else {
-        ind = threeWays.indexOf(nextItem);
+        ind = threeWays.indexOf(nextItem.type);
         if (ind + 1 > threeWays.length - 1) {
             ind = 0;
         } else {
             ind++;
         }
-        nextItem = threeWays[ind];
+        nextItem.type = threeWays[ind];
     }
-    nextItemFrame.style.backgroundImage = `url(${nextItem.img})`;
+    nextItemFrame.style.backgroundImage = `url(${nextItem.type.img})`;
 };
-
 const slide = (e) => {
     let element = e.target;
     if (element.matches(".arrow")) {
         element = element.parentElement;
     }
-    if (element.matches(".entrance")) {
+    if (element.matches(".entrance") && !alreadyMoved) {
+        if (lastEntrance != null) {
+            if (element === getOppositeEntrance(lastEntrance)) {
+                return;
+            }
+        }
+
         let colNum;
         let rowNum;
         if (element.matches(".top")) {
@@ -484,13 +850,28 @@ const slide = (e) => {
             colNum = getCol(element);
             shiftUpwards(colNum);
         }
+        alreadyMoved = true;
+
         drawCells();
         drawPlayers();
-    }
-    drawCurrentPlayerFields();
-    drawTreasure(currentPlayer);
-};
+        getAvailableFields(
+            players[curPlayer].curPos[0],
+            players[curPlayer].curPos[1]
+        );
+        drawAvailableFields();
+        drawNextTreasure(curPlayer);
+        drawPlayerIcons();
 
+        cells.forEach((x) => {
+            if (!x.matches(".path")) {
+                /* x.classList.toggle("dimmed") */
+                x.style.opacity = "0.7";
+            }
+        });
+        lastEntrance = element;
+    }
+    drawValidEntrances();
+};
 const shiftLeft = (rowNum) => {
     tempNextItem = table[rowNum][0];
     for (let i = 0; i < table.length - 1; i++) {
@@ -501,37 +882,20 @@ const shiftLeft = (rowNum) => {
 
     /* Shift Players */
     for (let i = 0; i < players.length; i++) {
-        if (players[i].currentPosition[1] == rowNum) {
+        if (players[i].curPos[0] == rowNum) {
             let newPos;
-            if (players[i].currentPosition[0] == 0) {
-                newPos =
-                    parseInt(table.length) -
-                    1 +
-                    "" +
-                    players[i].currentPosition[1];
+            if (players[i].curPos[1] == 0) {
+                newPos = players[i].curPos[0] + "" + (table[rowNum].length - 1);
             } else {
                 newPos =
-                    parseInt(players[i].currentPosition[0]) -
-                    1 +
+                    players[i].curPos[0] +
                     "" +
-                    players[i].currentPosition[1];
+                    (parseInt(players[i].curPos[1]) - 1);
             }
-            players[i].currentPosition = newPos;
+            players[i].curPos = newPos;
         }
     }
-    shiftTreasuresLeft(rowNum);
 };
-const shiftTreasuresLeft = (rowNum) => {
-    for (let i = 0; i < players.length; i++) {
-        let tempTreasure = players[i].treasure[rowNum][0];
-        for (let j = 0; j < players[i].treasure.length - 1; j++) {
-            players[i].treasure[rowNum][j] = players[i].treasure[rowNum][j + 1];
-        }
-        players[i].treasure[rowNum][players[i].treasure[rowNum].length - 1] =
-            tempTreasure;
-    }
-};
-
 const shiftRight = (rowNum) => {
     tempNextItem = table[rowNum][table[rowNum].length - 1];
     for (let i = table.length - 1; i > 0; i--) {
@@ -542,33 +906,20 @@ const shiftRight = (rowNum) => {
 
     /* Shift players */
     for (let i = 0; i < players.length; i++) {
-        if (players[i].currentPosition[1] == rowNum) {
+        if (players[i].curPos[0] == rowNum) {
             let newPos;
-            if (players[i].currentPosition[0] == table.length - 1) {
-                newPos = 0 + "" + players[i].currentPosition[1];
+            if (players[i].curPos[1] == table[rowNum].length - 1) {
+                newPos = players[i].curPos[0] + "" + 0;
             } else {
                 newPos =
-                    parseInt(players[i].currentPosition[0]) +
-                    1 +
+                    players[i].curPos[0] +
                     "" +
-                    players[i].currentPosition[1];
+                    (parseInt(players[i].curPos[1]) + 1);
             }
-            players[i].currentPosition = newPos;
+            players[i].curPos = newPos;
         }
     }
-    shiftTreasuresRight(rowNum);
 };
-const shiftTreasuresRight = (rowNum) => {
-    for (let i = 0; i < players.length; i++) {
-        let tempTreasure =
-            players[i].treasure[rowNum][players[i].treasure[rowNum].length - 1];
-        for (let j = players[i].treasure.length - 1; j > 0; j--) {
-            players[i].treasure[rowNum][j] = players[i].treasure[rowNum][j - 1];
-        }
-        players[i].treasure[rowNum][0] = tempTreasure;
-    }
-};
-
 const shiftDownwards = (colNum) => {
     tempNextItem = table[table.length - 1][colNum];
     for (let i = table.length - 1; i > 0; i--) {
@@ -579,32 +930,21 @@ const shiftDownwards = (colNum) => {
 
     /* Shift players */
     for (let i = 0; i < players.length; i++) {
-        if (players[i].currentPosition[0] == colNum) {
+        if (players[i].curPos[1] == colNum) {
             let newPos;
-            if (players[i].currentPosition[1] == table[colNum].length - 1) {
-                newPos = players[i].currentPosition[0] + "" + 0;
+            if (players[i].curPos[0] == table.length - 1) {
+                newPos = 0 + "" + players[i].curPos[1];
             } else {
                 newPos =
-                    players[i].currentPosition[0] +
+                    parseInt(players[i].curPos[0]) +
+                    1 +
                     "" +
-                    (parseInt(players[i].currentPosition[1]) + 1);
+                    players[i].curPos[1];
             }
-            players[i].currentPosition = newPos;
+            players[i].curPos = newPos;
         }
     }
-    shiftTreasuresDownwards(colNum);
 };
-const shiftTreasuresDownwards = (colNum) => {
-    for (let i = 0; i < players.length; i++) {
-        let tempTreasure =
-            players[i].treasure[players[i].treasure.length - 1][colNum];
-        for (let j = players[i].treasure.length - 1; j > 0; j--) {
-            players[i].treasure[j][colNum] = players[i].treasure[j - 1][colNum];
-        }
-        players[i].treasure[0][colNum] = tempTreasure;
-    }
-};
-
 const shiftUpwards = (colNum) => {
     tempNextItem = table[0][colNum];
     for (let i = 0; i < table.length - 1; i++) {
@@ -615,227 +955,25 @@ const shiftUpwards = (colNum) => {
 
     /* Shift players */
     for (let i = 0; i < players.length; i++) {
-        if (players[i].currentPosition[0] == colNum) {
+        if (players[i].curPos[1] == colNum) {
             let newPos;
-            if (players[i].currentPosition[1] == 0) {
-                newPos =
-                    players[i].currentPosition[0] +
-                    "" +
-                    (parseInt(table[colNum].length) - 1);
+            if (players[i].curPos[0] == 0) {
+                newPos = parseInt(table.length) - 1 + "" + players[i].curPos[1];
             } else {
                 newPos =
-                    players[i].currentPosition[0] +
+                    parseInt(players[i].curPos[0] - 1) +
                     "" +
-                    (parseInt(players[i].currentPosition[1]) - 1);
+                    players[i].curPos[1];
             }
-            players[i].currentPosition = newPos;
-        }
-    }
-    shiftTreasuresUpwards(colNum);
-};
-const shiftTreasuresUpwards = (colNum) => {
-    for (let i = 0; i < players.length; i++) {
-        let tempTreasure = players[i].treasure[0][colNum];
-        for (let j = 0; j < players[i].treasure.length - 1; j++) {
-            players[i].treasure[j][colNum] = players[i].treasure[j + 1][colNum];
-        }
-        players[i].treasure[players[i].treasure.length - 1][colNum] =
-            tempTreasure;
-    }
-};
-
-const nextPlayer = () => {
-    playerSpans[currentPlayer].querySelector("img").classList.toggle("active");
-    if (currentPlayer + 1 <= players.length - 1) {
-        currentPlayer++;
-    } else {
-        currentPlayer = 0;
-    }
-    playerSpans[currentPlayer].querySelector("img").classList.toggle("active");
-};
-
-let a = [];
-const getNeighborFields = (i, j) => {
-    let l = false;
-    a = [];
-    if (i - 1 >= 0 && table[i][j].T == 1 && table[i - 1][j].B == 1) {
-        if (availableFields[i - 1][j] != 1) {
-            a.push("up");
-            l = true;
-        }
-    }
-    if (
-        i + 1 <= table.length - 1 &&
-        table[i][j].B == 1 &&
-        table[i + 1][j].T == 1
-    ) {
-        if (availableFields[i + 1][j] != 1) {
-            a.push("down");
-            l = true;
-        }
-    }
-    if (j - 1 >= 0 && table[i][j].L == 1 && table[i][j - 1].R == 1) {
-        if (availableFields[i][j - 1] != 1) {
-            a.push("left");
-            l = true;
-        }
-    }
-    if (
-        j + 1 <= table[0].length - 1 &&
-        table[i][j].R == 1 &&
-        table[i][j + 1].L == 1
-    ) {
-        if (availableFields[i][j + 1] != 1) {
-            a.push("right");
-            l = true;
-        }
-    }
-    return l;
-};
-
-const getAvailableFields = (x, y) => {
-    availableFields = [
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-    ];
-    let i = y;
-    let j = x;
-    availableFields[i][j] = 1;
-    let l = 0;
-    while (l < 14) {
-        for (let i = 0; i < availableFields.length; i++) {
-            for (let j = 0; j < availableFields[i].length; j++) {
-                if (availableFields[i][j] == 1) {
-                    if (getNeighborFields(i, j)) {
-                        if (a.includes("up")) {
-                            availableFields[i - 1][j] = 1;
-                        }
-                        if (a.includes("down")) {
-                            availableFields[i + 1][j] = 1;
-                        }
-                        if (a.includes("left")) {
-                            availableFields[i][j - 1] = 1;
-                        }
-                        if (a.includes("right")) {
-                            availableFields[i][j + 1] = 1;
-                        }
-                    }
-                }
-            }
-        }
-        l++;
-    }
-};
-
-/* DRAWING FUNCTIONS */
-const drawCells = () => {
-    tableArray = [];
-    tableArray = matrixToArray(table);
-
-    for (let i = 0; i < cells.length; i++) {
-        cells[i].style.backgroundImage = `url(${tableArray[i].img})`;
-    }
-    nextItemFrame.style.backgroundImage = `url(${nextItem.img})`;
-};
-
-const drawTreasure = (playerID) => {
-    let treasureImageCells = document.querySelectorAll(".treasure-img");
-    for (let img of treasureImageCells) {
-        img.remove();
-    }
-    setNextTreasure(players[playerID]);
-    if (players[playerID].nextTreasure != 0) {
-        let coord = players[playerID].nextTreasure;
-        document.getElementById(
-            `${coord.x + "" + coord.y}`
-        ).innerHTML += `<img class="treasure-img" src="img/treasure.png">`;
-    }
-
-    if (players[playerID].nextTreasure != 0) {
-        playerSpans[playerID].querySelector(".next-treasure").innerHTML = `x: ${
-            players[playerID].nextTreasure.x + 1
-        }, y: ${players[playerID].nextTreasure.y + 1}`;
-    } else {
-        let coord = genCoordFromStr(players[playerID].startPosition);
-        playerSpans[playerID].querySelector(".next-treasure").innerHTML = `x: ${
-            parseInt(coord.y) + 1
-        }, y: ${parseInt(coord.y) + 1}`;
-    }
-};
-
-const drawPlayers = () => {
-    let playerImageCells = document.querySelectorAll(".player-img");
-    for (let img of playerImageCells) {
-        img.remove();
-    }
-    for (let i = 0; i < players.length; i++) {
-        document.getElementById(
-            `${players[i].currentPosition}`
-        ).innerHTML += `<img class="player-img" src="${players[i].img}">`;
-    }
-};
-
-const drawPlayerIcons = () => {
-    for (let i = 0; i < players.length; i++) {
-        playerSpans[i].style.display = "flex";
-        playerSpans[i].querySelector("img").src = players[i].img;
-        playerSpans[i].querySelector(".player-name").innerHTML = names[i];
-        playerSpans[i].querySelector(
-            ".collected"
-        ).innerHTML = `Collected: 0/${treasureNumber.value}`;
-        playerSpans[i].querySelector(".next-treasure").innerHTML = `x: ${
-            players[i].nextTreasure.x + 1
-        }, y: ${players[i].nextTreasure.y + 1}`;
-    }
-};
-
-const drawAvailableFields = () => {
-    for (let i = 0; i < availableFields.length; i++) {
-        for (let j = 0; j < availableFields[i].length; j++) {
-            document.getElementById(`${j + "" + i}`).classList.remove("path");
-            if (availableFields[i][j] == 1) {
-                document
-                    .getElementById(`${j + "" + i}`)
-                    .classList.toggle("path");
-            }
+            players[i].curPos = newPos;
         }
     }
 };
 
-const unDrawAvailableFields = () => {
-    for (let i = 0; i < availableFields.length; i++) {
-        for (let j = 0; j < availableFields[i].length; j++) {
-            document.getElementById(`${j + "" + i}`).classList.remove("path");
-        }
-    }
-};
-
-const drawCurrentPlayerFields = () => {
-    let cur = players[currentPlayer];
-    let i = cur.currentPosition[0];
-    let j = cur.currentPosition[1];
-    getAvailableFields(i, j);
-    drawAvailableFields();
-};
-/* HELPER FUNCTIONS */
+//* ----------Helper Functions----------
 const getRandomInt = (max) => {
     return Math.floor(Math.random() * (max - 0 + 1));
 };
-
-const matrixToArray = (arrToConvert) => {
-    let newArr = [];
-
-    for (let i = 0; i < arrToConvert.length; i++) {
-        newArr = newArr.concat(arrToConvert[i]);
-    }
-    return newArr;
-};
-
 const getCol = (element) => {
     if (element.matches(".col1")) {
         return 1;
@@ -845,7 +983,6 @@ const getCol = (element) => {
         return 5;
     }
 };
-
 const getRow = (element) => {
     if (element.matches(".row1")) {
         return 1;
@@ -855,45 +992,96 @@ const getRow = (element) => {
         return 5;
     }
 };
-
-const setTreasuresToZero = () => {
+const getCellPosition = (cellID) => {
+    let k = -1;
+    let h = -1;
     for (let i = 0; i < table.length; i++) {
         for (let j = 0; j < table[i].length; j++) {
-            player1Treasure[i][j] = 0;
-            player2Treasure[i][j] = 0;
-            player3Treasure[i][j] = 0;
-            player4Treasure[i][j] = 0;
-        }
-    }
-};
-
-const calcNextTreasure = (t) => {
-    for (let i = 0; i < t.length; i++) {
-        for (let j = 0; j < t[i].length; j++) {
-            if (t[i][j] == 1) {
-                return { x: j, y: i };
+            if (table[i][j].ID == cellID) {
+                k = i;
+                h = j;
             }
         }
     }
-    return 0;
+    if (k == -1) {
+        return "-1";
+    } else {
+        return k + "" + h;
+    }
+};
+const getOppositeEntrance = (element) => {
+    if (element.matches(".top")) {
+        switch (getCol(element)) {
+            case 1:
+                return document.querySelector(".bottom.col1");
+            case 3:
+                return document.querySelector(".bottom.col3");
+            case 5:
+                return document.querySelector(".bottom.col5");
+        }
+    } else if (element.matches(".bottom")) {
+        switch (getCol(element)) {
+            case 1:
+                return document.querySelector(".top.col1");
+            case 3:
+                return document.querySelector(".top.col3");
+            case 5:
+                return document.querySelector(".top.col5");
+        }
+    } else if (element.matches(".side-r")) {
+        switch (getRow(element)) {
+            case 1:
+                return document.querySelector(".side-l.row1");
+            case 3:
+                return document.querySelector(".side-l.row3");
+            case 5:
+                return document.querySelector(".side-l.row5");
+        }
+    } else if (element.matches(".side-l")) {
+        switch (getRow(element)) {
+            case 1:
+                return document.querySelector(".side-r.row1");
+            case 3:
+                return document.querySelector(".side-r.row3");
+            case 5:
+                return document.querySelector(".side-r.row5");
+        }
+    }
+};
+const matrixToArray = (arrToConvert) => {
+    let newArr = [];
+
+    for (let i = 0; i < arrToConvert.length; i++) {
+        newArr = newArr.concat(arrToConvert[i]);
+    }
+    return newArr;
 };
 
-const setNextTreasure = (player) => {
-    player.nextTreasure = calcNextTreasure(player.treasure);
+//* ----------Player Moving Functions----------
+const movePlayer = (e) => {
+    if (e.target.matches(".path")) {
+        players[curPlayer].curPos = e.target.id;
+        if (isTreasure(curPlayer)) {
+            pickUpTreasure(curPlayer);
+        }
+        if (checkWin(curPlayer)) {
+            win(curPlayer);
+        }
+
+        cells.forEach((x) => {
+            x.style.opacity = "1";
+            /* x.classList.remove("dimmed") */
+        });
+
+        drawPlayers();
+        unDrawAvailableFields();
+        step();
+    }
 };
-/* SAVING/LOADING FUNCTIONS */
+
+//* ----------Save/Load Functions----------
 const saveToLocalStorage = (name) => {
-    if (name.length > 15 || name.length < 3) {
-        error.innerHTML =
-            "Invalid! The file name must be 3-15 characters long!";
-        return false;
-    }
-    if (/[^A-Za-z0-9]+/.test(name)) {
-        error.innerHTML = "Invalid! No special characters!";
-        return false;
-    }
-    if (name == "") {
-        error.innerHTML = "The filename cannot be empty!";
+    if (!checkInput()) {
         return false;
     }
     if (!localStorage.getItem("saveNames")) {
@@ -914,13 +1102,14 @@ const saveToLocalStorage = (name) => {
     data.push(table);
     data.push(players);
     data.push(nextItem);
-    data.push(currentPlayer);
-    data.push(name);
+    data.push(curPlayer);
+    data.push(playerNumber);
+    data.push(treasureNumber);
+    data.push(alreadyMoved);
     let dataStr = JSON.stringify(data);
     localStorage.setItem(name, dataStr);
     return true;
 };
-
 const loadFromLocalStorage = (name) => {
     if (!name) {
         alert("A save file name must specified!");
@@ -933,34 +1122,28 @@ const loadFromLocalStorage = (name) => {
 
     let dataStr = localStorage.getItem(name);
     let data = JSON.parse(dataStr);
+    playerNumber = data[4];
+    treasureNumber = data[5];
+
+    start(playerNumber, treasureNumber);
+
     table = data[0].slice(0);
     players = data[1].slice(0);
     nextItem = data[2];
-    currentPlayer = data[3];
-
-    for (let i = 0; i < playerSpans.length; i++) {
-        playerSpans[i].style.display = "none";
-    }
+    curPlayer = data[3];
+    alreadyMoved = data[6];
 
     drawCells();
     drawPlayers();
     drawPlayerIcons();
-    drawTreasure(currentPlayer);
-    drawCurrentPlayerFields();
-
-    /* REMOVING ELEMENT */
-    /* const index = saveNames.indexOf(name);
-    if (index > -1) {
-        saveNames.splice(index, 1);
-    }
-    if (saveNames.length == 0) {
-        localStorage.removeItem("saveNames");
-    } else {
-        localStorage.setItem("saveNames", JSON.stringify(saveNames));
-    }
-    localStorage.removeItem(name); */
+    drawNextTreasure(curPlayer);
+    getAvailableFields(
+        players[curPlayer].curPos[0],
+        players[curPlayer].curPos[1]
+    );
+    drawAvailableFields();
+    drawValidEntrances();
 };
-
 const deleteFromLocalStorage = (name) => {
     let saveNames = JSON.parse(localStorage.getItem("saveNames"));
     const index = saveNames.indexOf(name);
@@ -974,59 +1157,7 @@ const deleteFromLocalStorage = (name) => {
     }
     localStorage.removeItem(name);
 };
-
-const deleteHandler = (e) => {
-    if (e.target.matches(".delete img")) {
-        deleteFromLocalStorage(e.target.id);
-        loadThumbnail();
-    }
-};
-
-const saveHandler = () => {
-    let name = saveFileInput.value;
-    if (!saveToLocalStorage(name)) {
-        return;
-    }
-    gameContainer.style.pointerEvents = "auto";
-    error.innerHTML = "";
-    back();
-};
-
-const openPopup = () => {
-    gameContainer.style.pointerEvents = "none";
-    popup.style.display = "flex";
-    error.innerHTML = "";
-    saveFileInput.value = "";
-    saveFileInput.disabled = false;
-    save.disabled = false;
-    if (localStorage.getItem("saveNames")) {
-        let temp = JSON.parse(localStorage.getItem("saveNames"));
-        if (temp) {
-            if (JSON.parse(localStorage.getItem("saveNames")).length >= 9) {
-                saveFileInput.disabled = true;
-                error.innerHTML = "Storage if full!";
-                save.disabled = true;
-            }
-        }
-    }
-};
-
-const loadPageHandler = () => {
-    menu.style.display = "none";
-    savedGames.style.display = "flex";
-    backBtn2.style.display = "flex";
-    loadThumbnail();
-};
-
-const loadMapHandler = (e) => {
-    if (e.target.matches("td") && e.target.innerHTML != "") {
-        back();
-        start();
-        loadFromLocalStorage(e.target.classList[0]);
-    }
-};
-
-function loadThumbnail() {
+const loadGamePreviews = () => {
     let cellsToClear = document.querySelectorAll("#saved-games td");
     for (let e of cellsToClear) {
         e.innerHTML = "";
@@ -1047,6 +1178,7 @@ function loadThumbnail() {
         let save = document.querySelector(`#saveTD${h}`);
         save.className = "";
         save.classList.add(saveNames[h]);
+        save.classList.add("td-pointer");
         let thumbnail = document.createElement("div");
         thumbnail.classList.add("thumbnail");
 
@@ -1066,7 +1198,7 @@ function loadThumbnail() {
                 let tempCell = document.createElement("td");
                 tempCell.classList.add(`cell-style`);
                 tempCell.classList.add(`cell${h}`);
-                tempCell.id = `ID${h}${j + "" + i}`;
+                tempCell.id = `ID${h}${i + "" + j}`;
                 tempRow.append(tempCell);
             }
             tempTable.append(tempRow);
@@ -1075,38 +1207,50 @@ function loadThumbnail() {
         thumbnail.append(delBtn);
         thumbnail.append(tempTable);
         thumbnail.append(label);
-        /* console.log(tempTable.outerHTML); */
         save.append(thumbnail);
 
         let tableData = JSON.parse(data)[0];
         let playerData = JSON.parse(data)[1];
         let cells2 = document.querySelectorAll(`.thumbnail .cell${h}`);
 
-        tableArray = [];
+        let tableArray = [];
         tableArray = matrixToArray(tableData);
 
         for (let i = 0; i < cells2.length; i++) {
-            cells2[i].style.backgroundImage = `url(${tableArray[i].img})`;
+            cells2[i].style.backgroundImage = `url(${tableArray[i].type.img})`;
         }
         for (let i = 0; i < playerData.length; i++) {
             document
-                .getElementById(`ID${h}${playerData[i].currentPosition}`)
+                .getElementById(`ID${h}${playerData[i].curPos}`)
                 .classList.add(`inner-player${i}`);
         }
     }
-}
-/* EVENT LISTENERS */
-sliders.addEventListener("input", updateOutPut);
-startBtn.addEventListener("click", start);
-backBtn.addEventListener("click", openPopup);
-rotateBtn.addEventListener("click", rotate);
-game.addEventListener("click", slide);
-game.addEventListener("click", availableFieldsHandler);
+};
+
+//* ----------Action Listeners----------
+sliders.addEventListener("input", sliderInputHandler);
+startBtn.addEventListener("click", firstRun);
+backBtn.addEventListener("click", openPopUp);
 winBackBtn.addEventListener("click", back);
-exit.addEventListener("click", back);
-save.addEventListener("click", saveHandler);
-savedGames.addEventListener("click", deleteHandler);
-load.addEventListener("click", loadPageHandler);
 backBtn2.addEventListener("click", back);
-saveGrid.addEventListener("click", loadMapHandler);
-cancelBtn.addEventListener("click", cancelHandler);
+rotateBtn.addEventListener("click", rotate);
+howToBtn.addEventListener("click", toggleDescription);
+game.addEventListener("click", slide);
+game.addEventListener("click", movePlayer);
+savedGamesBtn.addEventListener("click", loadSaveMenu);
+exitBtn.addEventListener("click", back);
+cancelBtn.addEventListener("click", cancelPopUp);
+saveBtn.addEventListener("click", saveGame);
+saveFileInput.addEventListener("input", checkInput);
+savedGames.addEventListener("click", deleteHandler);
+saveGrid.addEventListener("click", loadGame);
+
+document.addEventListener(
+    "contextmenu",
+    function (e) {
+        e.preventDefault();
+    },
+    false
+);
+//* ----------OnLoad Function Calls----------
+sliderInputHandler();

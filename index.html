@@ -16,14 +16,14 @@
             type="image/jpg"
             href="img/knight_transparent8.png"
         />
-        <title>Katakombák - Nuszpl Botond</title>
+        <title>Catacombs - Nuszpl Botond</title>
     </head>
     <body>
         <div id="menu">
             <div id="description">
-                <h1>A játék leírása</h1>
-                <p>
-                    A katakomba szobáit egy 7x7-es négyzetrács cellái
+                <h1>Catacombs</h1>
+                <p class="hidden">
+                    A <b>katakomba</b> szobáit egy 7x7-es négyzetrács cellái
                     jelképezik. Minden szobában adott, hogy hány falán van ajtó.
                     Ha két szomszédos szoba érintkező falán egy-egy ajtó van,
                     akkor át lehet menni egyik szobából a másikba. A négyzetrács
@@ -33,11 +33,65 @@
                     kincsekhez. Mindegyik kérő arra törekszik, hogy a katakomba
                     szobáinak ötletes eltolásával eljusson a kincsekhez. Aki
                     elsőként találja meg mindahányat és kiindulópontjára
-                    sikeresen visszaérkezik az a nyertes.
+                    sikeresen visszaérkezik az a nyertes. <br /><br />
+
+                    A <b>játék elején</b> a szobákat véletlen sorrendben és
+                    véletlen irányban kirakjuk a játéktábla szabad mezőire. A
+                    szobák közül az egyik mindenképpen fölösleges marad. A játék
+                    folyamán majd mindig az éppen kimaradó szobát használjuk a
+                    többi szoba elcsúsztatására. A játékban legfeljebb 24
+                    kincset kell megtalálni. Ezeket véletlen sorrendben
+                    felrakjuk a táblára úgy, hogy egy mezőn csak egy kincs
+                    lehet, és a sarokba nem rakhatunk, majd az ezeket jelző
+                    kártyákat összekeverjük, és egyenlő számban szétosztjuk a
+                    játékosok között, felfedve mindig a legfelső kártyát. A
+                    játékosokat jelző figurákat a tábla külön sarkaiba
+                    helyezzük.<br /><br />
+
+                    A <b>játék során</b> minden játékosnak a kincsei közül azt
+                    kell megszereznie, amit az aktuálisan legfelső, mindenki
+                    által látható kincskártya mutat. Arra a mezőre kell eljutni.
+                    Ahhoz, hogy a célt elérje, a játékosnak<br /><br />
+
+                    1, először a katakombát kell átalakítania a kimaradt szoba
+                    becsúsztatásával, és <br />
+                    2, lépnie mindig csak ez után szabad a figurájával.<br /><br />
+                    A <b>katakomba átalakítása</b> a következőképpen történik: A
+                    játékos a kimaradt szobát (tetszőlegesen elforgatva)
+                    valamelyik oldalról becsúsztathatja a játéktábla területére
+                    egy szabadon mozgó sor vagy oszlop szélén, aminek
+                    következtében az átellenes oldalon kiesik egy másik szoba. A
+                    tábla szélén nyilak jelzik azokat a helyeket, ahol a szobát
+                    be lehet csúsztatni. A szoba bárhol betolható, kivétel ott,
+                    ahol az imént kilökődött. Nem szabad tehát az előző játékos
+                    lépését rögtön „visszacsinálni". Ha a szobák eltolása során
+                    a szobával együtt egy figura is kitolódnék – akár másé, akár
+                    a miénk -, akkor ezt a figurát az ellenkező oldalról imént
+                    becsúsztatott szobába kell helyezni.<br /><br />
+
+                    A szobák eltolását követi a <b>játékos lépése</b> a
+                    figurával. A katakomba minden olyan pontjáig el lehet jutni,
+                    amelyet a kiindulóponttal folyamatos járatvonal köt össze.
+                    Az ilyen járatokban tehát olyan messzire mehetünk el,
+                    amilyen messzire csak akarunk, vagyis nem számít, hogy hány
+                    szobán lépkedünk végig. Nem kötelező lépni. Figuránkat akár
+                    ott is hagyhatjuk, ahol éppen van. Egy mezőn több figura is
+                    állhat: a figurák nem ütik ki egymást. Ha valaki nem tud
+                    rögtön céljáig eljutni, akkor figurájával addig a pontig
+                    célszerű elmennie, ahol feltehetőleg jó helyzetben várhatja
+                    következő lépést. Ha valaki elérte a felfedett kincskártya
+                    által megjelölt célt, akkor felfedi a következőt, és most
+                    ehhez a célhoz igyekszik eljutni, stb.<br /><br />
+
+                    A <b>játék akkor ér véget</b>, ha egy játékos az összes
+                    kincskártyájához tartozó kincset megszerezte, és
+                    visszavezette a figuráját arra mezőre, ahonnan elindult. Az
+                    a győztes, aki valamennyi kincsét megtalálta és figuráját
+                    elsőként juttatta vissza a kiindulópontra.
                 </p>
             </div>
             <div id="sliders">
-                <label for="player-number">Number of Players (1-4):</label>
+                <label for="player-number">Number of Players (1-4)</label>
                 <input
                     type="range"
                     value="2"
@@ -45,28 +99,32 @@
                     max="4"
                     name="player-number"
                     id="player-number"
-                    oninput="updateMaxTreasureValue(this.value)"
                 />
                 <output id="player-out">2</output>
                 <label for="treasure-number"
-                    >Number of Treasures/Player (1-<span id="max-treasure">12</span>)</label
+                    >Number of Treasures/Player (1-<span id="max-treasure"
+                        >12</span
+                    >)</label
                 >
                 <input
                     type="range"
-                    value="6"
+                    value="2"
                     min="1"
                     max="12"
                     name="treasure-number"
                     id="treasure-number"
                 />
-                <output id="treasure-out">6</output>
+                <output id="treasure-out">2</output>
+            </div>
+            <div>
+                <button id="how-to">How To Play?</button>
             </div>
             <button id="start">START</button>
             <button id="load">SAVED GAMES</button>
         </div>
         <div id="popup">
             <label for="save-file-name">Enter save file name: </label>
-            <input type="text" name="" id="save-file-name">
+            <input type="text" name="" id="save-file-name" />
             <div id="save-buttons">
                 <button id="save">Save</button>
                 <button id="exit">Exit</button>
@@ -94,7 +152,8 @@
                 </tr>
             </table>
             <button id="back2">
-                <img width="15px" src="img/back-arrow.png" alt="" /> Back to menu
+                <img width="15px" src="img/back-arrow.png" alt="" /> Back to
+                menu
             </button>
         </div>
         <div id="container">
@@ -120,89 +179,89 @@
                     <tr>
                         <td class="border side-l"></td>
                         <td id="00" class="cell fix"></td>
-                        <td id="10" class="cell rnd"></td>
-                        <td id="20" class="cell fix"></td>
-                        <td id="30" class="cell rnd"></td>
-                        <td id="40" class="cell fix"></td>
-                        <td id="50" class="cell rnd"></td>
-                        <td id="60" class="cell fix"></td>
+                        <td id="01" class="cell rnd"></td>
+                        <td id="02" class="cell fix"></td>
+                        <td id="03" class="cell rnd"></td>
+                        <td id="04" class="cell fix"></td>
+                        <td id="05" class="cell rnd"></td>
+                        <td id="06" class="cell fix"></td>
                         <td class="border side-r"></td>
                     </tr>
                     <tr>
                         <td class="border side-l entrance row1">
                             <i class="arrow right"></i>
                         </td>
-                        <td id="01" class="cell rnd"></td>
+                        <td id="10" class="cell rnd"></td>
                         <td id="11" class="cell rnd"></td>
-                        <td id="21" class="cell rnd"></td>
-                        <td id="31" class="cell rnd"></td>
-                        <td id="41" class="cell rnd"></td>
-                        <td id="51" class="cell rnd"></td>
-                        <td id="61" class="cell rnd"></td>
+                        <td id="12" class="cell rnd"></td>
+                        <td id="13" class="cell rnd"></td>
+                        <td id="14" class="cell rnd"></td>
+                        <td id="15" class="cell rnd"></td>
+                        <td id="16" class="cell rnd"></td>
                         <td class="border side-r entrance row1">
                             <i class="arrow left"></i>
                         </td>
                     </tr>
                     <tr>
                         <td class="border side-l"></td>
-                        <td id="02" class="cell fix"></td>
-                        <td id="12" class="cell rnd"></td>
+                        <td id="20" class="cell fix"></td>
+                        <td id="21" class="cell rnd"></td>
                         <td id="22" class="cell fix"></td>
-                        <td id="32" class="cell rnd"></td>
-                        <td id="42" class="cell fix"></td>
-                        <td id="52" class="cell rnd"></td>
-                        <td id="62" class="cell fix"></td>
+                        <td id="23" class="cell rnd"></td>
+                        <td id="24" class="cell fix"></td>
+                        <td id="25" class="cell rnd"></td>
+                        <td id="26" class="cell fix"></td>
                         <td class="border side-r"></td>
                     </tr>
                     <tr>
                         <td class="border side-l entrance row3">
                             <i class="arrow right"></i>
                         </td>
-                        <td id="03" class="cell rnd"></td>
-                        <td id="13" class="cell rnd"></td>
-                        <td id="23" class="cell rnd"></td>
+                        <td id="30" class="cell rnd"></td>
+                        <td id="31" class="cell rnd"></td>
+                        <td id="32" class="cell rnd"></td>
                         <td id="33" class="cell rnd"></td>
-                        <td id="43" class="cell rnd"></td>
-                        <td id="53" class="cell rnd"></td>
-                        <td id="63" class="cell rnd"></td>
+                        <td id="34" class="cell rnd"></td>
+                        <td id="35" class="cell rnd"></td>
+                        <td id="36" class="cell rnd"></td>
                         <td class="border side-r entrance row3">
                             <i class="arrow left"></i>
                         </td>
                     </tr>
                     <tr>
                         <td class="border side-l"></td>
-                        <td id="04" class="cell fix"></td>
-                        <td id="14" class="cell rnd"></td>
-                        <td id="24" class="cell fix"></td>
-                        <td id="34" class="cell rnd"></td>
+                        <td id="40" class="cell fix"></td>
+                        <td id="41" class="cell rnd"></td>
+                        <td id="42" class="cell fix"></td>
+                        <td id="43" class="cell rnd"></td>
                         <td id="44" class="cell fix"></td>
-                        <td id="54" class="cell rnd"></td>
-                        <td id="64" class="cell fix"></td>
+                        <td id="45" class="cell rnd"></td>
+                        <td id="46" class="cell fix"></td>
                         <td class="border side-r"></td>
                     </tr>
                     <tr>
                         <td class="border side-l entrance row5">
                             <i class="arrow right"></i>
                         </td>
-                        <td id="05" class="cell rnd"></td>
-                        <td id="15" class="cell rnd"></td>
-                        <td id="25" class="cell rnd"></td>
-                        <td id="35" class="cell rnd"></td>
-                        <td id="45" class="cell rnd"></td>
+                        <td id="50" class="cell rnd"></td>
+                        <td id="51" class="cell rnd"></td>
+                        <td id="52" class="cell rnd"></td>
+                        <td id="53" class="cell rnd"></td>
+                        <td id="54" class="cell rnd"></td>
                         <td id="55" class="cell rnd"></td>
-                        <td id="65" class="cell rnd"></td>
+                        <td id="56" class="cell rnd"></td>
                         <td class="border side-r entrance row5">
                             <i class="arrow left"></i>
                         </td>
                     </tr>
                     <tr>
                         <td class="border side-l"></td>
-                        <td id="06" class="cell fix"></td>
-                        <td id="16" class="cell rnd"></td>
-                        <td id="26" class="cell fix"></td>
-                        <td id="36" class="cell rnd"></td>
-                        <td id="46" class="cell fix"></td>
-                        <td id="56" class="cell rnd"></td>
+                        <td id="60" class="cell fix"></td>
+                        <td id="61" class="cell rnd"></td>
+                        <td id="62" class="cell fix"></td>
+                        <td id="63" class="cell rnd"></td>
+                        <td id="64" class="cell fix"></td>
+                        <td id="65" class="cell rnd"></td>
                         <td id="66" class="cell fix"></td>
                         <td class="border side-r"></td>
                     </tr>
@@ -224,7 +283,7 @@
                         <td class="border corner"></td>
                     </tr>
                 </table>
-                <div id="next-item"><img src="" alt="" /></div>
+                <div id="next-item"></div>
                 <button id="rotate"></button>
             </div>
             <div id="players1">
