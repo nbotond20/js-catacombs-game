@@ -102,6 +102,7 @@ table{
     height: 750px;
     width: 750px;
     border-collapse: collapse;
+    border-spacing: 0;
     -webkit-transition: width 1s ease-in-out, height 1s ease-in-out;
     -moz-transition: width 1s ease-in-out, height 1s ease-in-out;
     -o-transition: width 1s ease-in-out, height 1s ease-in-out;
@@ -281,6 +282,7 @@ table{
 
 .treasure-img{
     width: 15px;
+    /* width: 30px; */ /* treasure.gif */
     pointer-events: none;
 }
 

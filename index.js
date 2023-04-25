@@ -660,16 +660,18 @@ const drawPlayerIcons = () => {
         if (players[i].treasureIDs.length != 0) {
             let pos = getCellPosition(players[i].treasureIDs[0]);
             if (pos != -1) {
-                spans[i].querySelector(".next-treasure").innerHTML = `x: ${parseInt(pos[1]) + 1
-                    }, y: ${parseInt(pos[0]) + 1}`;
+                spans[i].querySelector(".next-treasure").innerHTML = `x: ${
+                    parseInt(pos[1]) + 1
+                }, y: ${parseInt(pos[0]) + 1}`;
             } else {
                 spans[i].querySelector(
                     ".next-treasure"
                 ).innerHTML = `x: -, y: -`;
             }
         } else {
-            spans[i].querySelector(".next-treasure").innerHTML = `x: ${parseInt(players[i].startPos[1]) + 1
-                }, y: ${parseInt(players[i].startPos[0]) + 1}`;
+            spans[i].querySelector(".next-treasure").innerHTML = `x: ${
+                parseInt(players[i].startPos[1]) + 1
+            }, y: ${parseInt(players[i].startPos[0]) + 1}`;
         }
     }
 };
@@ -839,7 +841,7 @@ const slide = (e) => {
         let rowNum;
         if (element.matches(".top")) {
             colNum = getCol(element);
-            shiftDownwards(colNum);
+            shiftDown(colNum);
         } else if (element.matches(".side-l")) {
             rowNum = getRow(element);
             shiftRight(rowNum);
@@ -848,7 +850,7 @@ const slide = (e) => {
             shiftLeft(rowNum);
         } else {
             colNum = getCol(element);
-            shiftUpwards(colNum);
+            shiftUp(colNum);
         }
         alreadyMoved = true;
 
@@ -920,7 +922,7 @@ const shiftRight = (rowNum) => {
         }
     }
 };
-const shiftDownwards = (colNum) => {
+const shiftDown = (colNum) => {
     tempNextItem = table[table.length - 1][colNum];
     for (let i = table.length - 1; i > 0; i--) {
         table[i][colNum] = table[i - 1][colNum];
@@ -945,7 +947,7 @@ const shiftDownwards = (colNum) => {
         }
     }
 };
-const shiftUpwards = (colNum) => {
+const shiftUp = (colNum) => {
     tempNextItem = table[0][colNum];
     for (let i = 0; i < table.length - 1; i++) {
         table[i][colNum] = table[i + 1][colNum];
